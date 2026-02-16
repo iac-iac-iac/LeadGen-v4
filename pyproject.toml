@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "lead-generation-system"
+version = "1.0.0"
+description = "Production-ready lead processing system"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyQt6 = "^6.6"
+pandas = "^2.2"
+pydantic = "^2.6"
+pydantic-settings = "^2.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-cov = "^4.1"
+pytest-mock = "^3.12"
+ruff = "^0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

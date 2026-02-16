@@ -1,0 +1,45 @@
+[2026-02-16 13:54:30] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 13:54:30] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 13:54:30] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 13:54:30] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 13:54:30] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 13:54:30] [INFO    ] repositories.base:36 — Создание новой БД: data\database.db
+[2026-02-16 13:54:31] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 13:54:31] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 13:54:31] [ERROR   ] __main__:41 — Ошибка инициализации БД
+Traceback (most recent call last):
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\main.py", line 37, in initialize_database
+    managers_repo.sync_managers(settings.default_managers)
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\managers_repo.py", line 71, in sync_managers
+    existing = set(self.get_all_active())
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\managers_repo.py", line 36, in get_all_active
+    rows = self.fetch_all(query)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\base.py", line 95, in fetch_all
+    return cursor.fetchall()
+           ^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+[2026-02-16 13:54:31] [CRITICAL] __main__:59 — Не удалось инициализировать БД, выход
+[2026-02-16 13:54:43] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 13:54:43] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 13:54:43] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 13:54:43] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 13:54:43] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 13:54:43] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 13:54:43] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 13:54:43] [ERROR   ] __main__:41 — Ошибка инициализации БД
+Traceback (most recent call last):
+  File "c:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\main.py", line 37, in initialize_database
+    managers_repo.sync_managers(settings.default_managers)
+  File "c:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\managers_repo.py", line 71, in sync_managers
+    existing = set(self.get_all_active())
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\managers_repo.py", line 36, in get_all_active
+    rows = self.fetch_all(query)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\base.py", line 95, in fetch_all
+    return cursor.fetchall()
+           ^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+[2026-02-16 13:54:43] [CRITICAL] __main__:59 — Не удалось инициализировать БД, выход

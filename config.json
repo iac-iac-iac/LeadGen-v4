@@ -1,0 +1,10 @@
+{
+	"managers": [
+		"Менеджер 1",
+		"Менеджер 2"
+	],
+	"paths": {
+		"input_dir": "data/input",
+		"output_dir": "data/output"
+	}
+}
