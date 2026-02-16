@@ -1,13 +1,14 @@
 """
 Базовый репозиторий с общими операциями.
 
-Использует SQLite напрямую, но архитектура позволяет заменить на SQLAlchemy.
+ИСПРАВЛЕНО: используем context manager для корректного управления соединениями.
 """
 
 import sqlite3
 import logging
 from pathlib import Path
 from typing import Any, List, Optional, Type, TypeVar
+from contextlib import contextmanager
 
 from config.settings import settings
 from core.exceptions import DatabaseError
@@ -35,27 +36,38 @@ class BaseRepository:
         if not self.db_path.exists():
             logger.info(f"Создание новой БД: {self.db_path}")
 
-    def _get_connection(self) -> sqlite3.Connection:
-        """Получить соединение с БД."""
+    @contextmanager
+    def _get_connection(self):
+        """
+        Context manager для получения соединения с БД.
+        
+        Гарантирует, что соединение будет закрыто после использования.
+        """
+        conn = None
         try:
             conn = sqlite3.connect(self.db_path)
-            conn.row_factory = sqlite3.Row  # для доступа по именам колонок
-            return conn
+            conn.row_factory = sqlite3.Row
+            yield conn
         except sqlite3.Error as exc:
             logger.exception("Ошибка подключения к БД")
+            if conn:
+                conn.rollback()
             raise DatabaseError(
                 "Не удалось подключиться к базе данных",
                 {"db_path": str(self.db_path), "error": str(exc)},
             ) from exc
+        finally:
+            if conn:
+                conn.close()
 
     def execute(
         self,
         query: str,
         params: tuple | dict | None = None,
         commit: bool = False,
-    ) -> sqlite3.Cursor:
+    ) -> List[sqlite3.Row]:
         """
-        Выполнить SQL-запрос.
+        Выполнить SQL-запрос и вернуть результаты.
 
         Args:
             query: SQL-запрос.
@@ -63,33 +75,59 @@ class BaseRepository:
             commit: сделать ли commit после выполнения.
 
         Returns:
-            Cursor с результатом.
+            List результатов (пустой для INSERT/UPDATE/DELETE).
 
         Raises:
             DatabaseError: при ошибке выполнения.
         """
-        conn = self._get_connection()
-        try:
-            cursor = conn.cursor()
-            cursor.execute(query, params or ())
-            if commit:
-                conn.commit()
-            return cursor
-        except sqlite3.Error as exc:
-            logger.exception(f"Ошибка выполнения запроса: {query}")
-            raise DatabaseError(
-                "Ошибка выполнения SQL-запроса",
-                {"query": query, "params": params, "error": str(exc)},
-            ) from exc
-        finally:
-            conn.close()
+        with self._get_connection() as conn:
+            try:
+                cursor = conn.cursor()
+                cursor.execute(query, params or ())
+                
+                if commit:
+                    conn.commit()
+                
+                # Возвращаем результаты сразу, пока соединение открыто
+                return cursor.fetchall()
+                
+            except sqlite3.Error as exc:
+                logger.exception(f"Ошибка выполнения запроса: {query}")
+                raise DatabaseError(
+                    "Ошибка выполнения SQL-запроса",
+                    {"query": query, "params": params, "error": str(exc)},
+                ) from exc
 
     def fetch_one(self, query: str, params: tuple | dict | None = None) -> Optional[sqlite3.Row]:
         """Выполнить SELECT и вернуть одну строку."""
-        cursor = self.execute(query, params)
-        return cursor.fetchone()
+        results = self.execute(query, params)
+        return results[0] if results else None
 
     def fetch_all(self, query: str, params: tuple | dict | None = None) -> List[sqlite3.Row]:
         """Выполнить SELECT и вернуть все строки."""
-        cursor = self.execute(query, params)
-        return cursor.fetchall()
+        return self.execute(query, params)
+
+    def execute_write(
+        self,
+        query: str,
+        params: tuple | dict | None = None,
+    ) -> int:
+        """
+        Выполнить INSERT/UPDATE/DELETE и вернуть lastrowid.
+
+        Returns:
+            lastrowid для INSERT, 0 для UPDATE/DELETE.
+        """
+        with self._get_connection() as conn:
+            try:
+                cursor = conn.cursor()
+                cursor.execute(query, params or ())
+                conn.commit()
+                return cursor.lastrowid
+                
+            except sqlite3.Error as exc:
+                logger.exception(f"Ошибка выполнения записи: {query}")
+                raise DatabaseError(
+                    "Ошибка выполнения SQL-записи",
+                    {"query": query, "params": params, "error": str(exc)},
+                ) from exc

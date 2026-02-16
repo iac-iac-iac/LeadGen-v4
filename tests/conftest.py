@@ -1,13 +1,13 @@
 """
 Pytest fixtures для всех тестов.
 
-Предоставляет:
-- Временные директории и БД.
-- Фикстуры с тестовыми данными.
-- Mock-объекты сервисов.
+ИСПРАВЛЕНО: полное игнорирование Windows cleanup-ошибок для SQLite.
 """
 
 import tempfile
+import gc
+import time
+import shutil
 from pathlib import Path
 from typing import Generator
 
@@ -24,9 +24,24 @@ from services.bitrix_service import BitrixService
 
 @pytest.fixture
 def temp_dir() -> Generator[Path, None, None]:
-    """Временная директория для тестов."""
-    with tempfile.TemporaryDirectory() as tmpdir:
+    """
+    Временная директория для тестов.
+
+    Windows-specific: игнорируем ошибки при удалении SQLite файлов.
+    """
+    tmpdir = tempfile.mkdtemp()
+    try:
         yield Path(tmpdir)
+    finally:
+        # Windows-specific: принудительно освобождаем ресурсы
+        gc.collect()
+        time.sleep(0.2)
+
+        # Игнорируем все ошибки при удалении (специфика Windows + SQLite)
+        try:
+            shutil.rmtree(tmpdir, ignore_errors=True)
+        except Exception:
+            pass  # полностью игнорируем любые ошибки cleanup
 
 
 @pytest.fixture

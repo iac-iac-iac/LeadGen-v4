@@ -1,12 +1,13 @@
 """
-Сервис обработки данных: загрузка, очистка, дедупликация.
+Модуль обработки сырых TSV/CSV файлов.
 
-Использует PhoneService, возвращает typed-модели (CleanedLead).
+PRODUCTION-VERSION: универсальный парсер с автоопределением формата.
 """
 
+import csv
 import logging
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 import pandas as pd
 
@@ -94,16 +95,151 @@ class DataService:
         return merged, stats
 
     def _read_file(self, path: Path) -> pd.DataFrame:
-        """Прочитать TSV/CSV файл."""
-        sep = TSV_SEPARATOR if path.suffix.lower() == ".tsv" else CSV_SEPARATOR
-        return pd.read_csv(path, sep=sep, dtype=str)
+        """
+        Универсальный парсер CSV/TSV с автоопределением формата.
+
+        Определяет:
+        - Разделитель (запятая, точка с запятой, табуляция)
+        - Кодировку (UTF-8, CP1251, Latin-1)
+        - Пропускает битые строки
+        """
+        # Список кодировок для России
+        encodings = ["utf-8", "cp1251", "latin-1", "utf-8-sig"]
+
+        for encoding in encodings:
+            try:
+                # Шаг 1: Определяем разделитель
+                delimiter = self._detect_delimiter(path, encoding)
+
+                # Шаг 2: Читаем файл с определённым разделителем
+                df = pd.read_csv(
+                    path,
+                    sep=delimiter,
+                    dtype=str,
+                    encoding=encoding,
+                    on_bad_lines="skip",
+                    engine="python",
+                    skipinitialspace=True,  # убирает пробелы после разделителя
+                )
+
+                logger.info(
+                    f"Файл {path.name} прочитан: "
+                    f"кодировка={encoding}, разделитель={repr(delimiter)}, "
+                    f"строк={len(df)}, колонок={len(df.columns)}"
+                )
+
+                return df
+
+            except UnicodeDecodeError:
+                continue
+            except Exception as exc:
+                logger.debug(f"Не удалось прочитать с {encoding}: {exc}")
+                continue
+
+        raise FileProcessingError(
+            f"Не удалось прочитать файл {path.name} ни с одной кодировкой",
+            {"encodings_tried": encodings}
+        )
+
+    def _detect_delimiter(self, path: Path, encoding: str) -> str:
+        """
+        Автоопределение разделителя CSV.
+
+        Читает первые 5 строк и определяет наиболее вероятный разделитель.
+        """
+        try:
+            with open(path, "r", encoding=encoding) as f:
+                # Читаем первые 5 строк для анализа
+                sample = "".join([f.readline() for _ in range(5)])
+
+            # csv.Sniffer автоматически определяет разделитель
+            sniffer = csv.Sniffer()
+            delimiter = sniffer.sniff(sample).delimiter
+
+            logger.debug(f"Автоопределён разделитель: {repr(delimiter)}")
+            return delimiter
+
+        except Exception:
+            # Fallback: пробуем по расширению файла
+            if path.suffix.lower() == ".tsv":
+                return "\t"
+            elif path.suffix.lower() == ".csv":
+                # Подсчитываем частоту разделителей в первой строке
+                with open(path, "r", encoding=encoding) as f:
+                    first_line = f.readline()
+
+                comma_count = first_line.count(",")
+                semicolon_count = first_line.count(";")
+                tab_count = first_line.count("\t")
+
+                # Выбираем самый частый
+                if tab_count > max(comma_count, semicolon_count):
+                    return "\t"
+                elif semicolon_count > comma_count:
+                    return ";"
+                else:
+                    return ","
+
+            # По умолчанию — запятая
+            return ","
 
     def _normalize_phones(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Нормализовать колонки с телефонами."""
+        """
+        Нормализовать колонки с телефонами.
+
+        УЛУЧШЕНО: гибкий поиск колонок с телефонами по паттернам.
+        """
+        # Возможные названия колонок с телефонами (case-insensitive)
+        phone_patterns = [
+            "phone_1", "phone_2", "phone1", "phone2",
+            "телефон", "телефон 1", "телефон 2",
+            "phone", "tel", "telephone",
+            "мобильный", "рабочий"
+        ]
+
+        # Приводим названия колонок к нижнему регистру для поиска
+        columns_lower = {col.lower(): col for col in df.columns}
+
+        # Ищем колонки, похожие на телефоны
+        phone_columns = []
+        for pattern in phone_patterns:
+            for col_lower, col_original in columns_lower.items():
+                if pattern in col_lower and col_original not in phone_columns:
+                    phone_columns.append(col_original)
+
+        # Если не нашли ни одной колонки — используем дефолтные
+        if not phone_columns:
+            logger.warning(
+                f"Не найдены колонки с телефонами. "
+                f"Доступные колонки: {list(df.columns)}"
+            )
+            phone_columns = ["phone_1", "phone_2"]
+
+        # Переименовываем первые 2 найденные колонки в стандартные имена
+        if len(phone_columns) >= 1:
+            if phone_columns[0] != "phone_1":
+                df = df.rename(columns={phone_columns[0]: "phone_1"})
+        else:
+            df["phone_1"] = None
+
+        if len(phone_columns) >= 2:
+            if phone_columns[1] != "phone_2":
+                df = df.rename(columns={phone_columns[1]: "phone_2"})
+        else:
+            df["phone_2"] = None
+
+        # Нормализуем
         for col in ("phone_1", "phone_2"):
             if col not in df.columns:
                 df[col] = None
             df[col] = df[col].apply(self.phone_service.normalize)
+
+        logger.debug(
+            f"Найдено телефонных колонок: {phone_columns[:2]} -> "
+            f"phone_1={df['phone_1'].notna().sum()}, "
+            f"phone_2={df['phone_2'].notna().sum()}"
+        )
+
         return df
 
     def _filter_empty_phones(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, int]:

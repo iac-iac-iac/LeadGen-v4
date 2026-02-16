@@ -84,9 +84,21 @@ class MainWindow(QMainWindow):
         logger.info("Главное окно инициализировано")
 
     def _setup_ui(self) -> None:
-        """Построить компоновку главного окно."""
+        """Построить компоновку главного окна с вкладками."""
+        from PyQt6.QtWidgets import QTabWidget
+        from gui.analytics_widget import AnalyticsWidget
+
         central = QWidget()
         main_layout = QVBoxLayout()
+
+        # Создаём вкладки
+        tabs = QTabWidget()
+
+        # ============================================================
+        # ВКЛАДКА 1: ОБРАБОТКА ДАННЫХ (основной функционал)
+        # ============================================================
+        tab_processing = QWidget()
+        processing_layout = QVBoxLayout()
 
         # Блок 1: Загрузка файлов
         group_files = QGroupBox("📁 1. Загрузка файлов")
@@ -128,11 +140,41 @@ class MainWindow(QMainWindow):
         layout_export.addWidget(self.button_export)
         group_export.setLayout(layout_export)
 
-        main_layout.addWidget(group_files)
-        main_layout.addWidget(group_managers)
-        main_layout.addWidget(group_process)
-        main_layout.addWidget(group_preview)
-        main_layout.addWidget(group_export)
+        # Добавляем все блоки в layout вкладки обработки
+        processing_layout.addWidget(group_files)
+        processing_layout.addWidget(group_managers)
+        processing_layout.addWidget(group_process)
+        processing_layout.addWidget(group_preview)
+        processing_layout.addWidget(group_export)
+
+        tab_processing.setLayout(processing_layout)
+
+        # ============================================================
+        # ВКЛАДКА 2: АНАЛИТИКА
+        # ============================================================
+        self.analytics_widget = AnalyticsWidget()
+
+        # Добавляем вкладки
+        tabs.addTab(tab_processing, "📝 Обработка данных")
+        tabs.addTab(self.analytics_widget, "📊 Статистика обработки")
+
+        # Вкладка: Битрикс-аналитика
+        from gui.bitrix_analytics_widget import BitrixAnalyticsWidget
+        self.bitrix_analytics_widget = BitrixAnalyticsWidget()
+        tabs.addTab(self.bitrix_analytics_widget, "📈 Битрикс Аналитика")
+
+        # Вкладка: История (НОВАЯ!)
+        from gui.history_widget import HistoryWidget
+        self.history_widget = HistoryWidget()
+        tabs.addTab(self.history_widget, "📜 История")
+
+        # Вкладка: Настройки
+        from gui.settings_widget import SettingsWidget
+        self.settings_widget = SettingsWidget()
+        tabs.addTab(self.settings_widget, "⚙️ Настройки")
+
+        # Добавляем вкладки в главный layout
+        main_layout.addWidget(tabs)
 
         central.setLayout(main_layout)
         self.setCentralWidget(central)
@@ -258,7 +300,8 @@ class MainWindow(QMainWindow):
                 "Ответственный",
             ]
             preview_df = self.bitrix_df[preview_cols].copy()
-            self.preview_table.show_dataframe(preview_df)
+            self.preview_table.show_dataframe(
+                preview_df, limit=settings.preview_rows)  # ← используем настройку
 
             self.progress_bar.set_progress(100, "✅ Готово")
             self.status_label.setText(
@@ -275,6 +318,20 @@ class MainWindow(QMainWindow):
 
             logger.info(f"Обработка завершена успешно: {stats.model_dump()}")
             self._update_buttons_state()
+
+            # Передаём данные в виджет аналитики
+            try:
+                self.analytics_widget.set_data(self.cleaned_df, self.bitrix_df)
+                logger.debug("Данные переданы в виджет аналитики")
+            except Exception as exc:
+                logger.warning(f"Не удалось обновить аналитику: {exc}")
+
+            # Обновляем историю обработок
+            try:
+                self.history_widget.refresh()
+                logger.debug("История обработок обновлена")
+            except Exception as exc:
+                logger.warning(f"Не удалось обновить историю: {exc}")
 
         except FileProcessingError as exc:
             logger.error(f"Ошибка обработки файлов: {exc.message}")
@@ -334,15 +391,27 @@ class MainWindow(QMainWindow):
                 pass
 
     def _on_export_clicked(self) -> None:
-        """Экспортировать в CSV для Битрикс."""
+        """
+        Экспортировать в CSV для Битрикс24.
+
+        ФОРМАТ БИТРИКС:
+        - Разделитель: точка с запятой (;)
+        - Кодировка: UTF-8 с BOM (utf-8-sig)
+        - Кавычки: все значения в кавычках
+        """
         if self.bitrix_df is None or self.bitrix_df.empty:
             QMessageBox.warning(self, "❌ Ошибка", "Нет данных для экспорта.")
             return
 
+        # Предлагаем имя файла по умолчанию
+        from datetime import datetime
+        default_name = f"bitrix_export_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+        default_path = str(settings.paths.output_dir / default_name)
+
         file_path, _ = QFileDialog.getSaveFileName(
             self,
             "Сохранить CSV для Битрикс24",
-            str(settings.paths.output_dir),
+            default_path,
             "CSV Files (*.csv);;All Files (*)",
         )
         if not file_path:
@@ -350,20 +419,37 @@ class MainWindow(QMainWindow):
 
         try:
             output_path = Path(file_path)
+
+            # КРИТИЧНО для Битрикс24: точка с запятой, UTF-8 с BOM, кавычки
             self.bitrix_df.to_csv(
                 output_path,
                 index=False,
-                encoding="utf-8-sig",  # BOM для правильного отображения в Excel
-                sep=",",
+                encoding="utf-8-sig",  # BOM для корректного отображения в Excel/Битрикс
+                sep=";",               # ← КЛЮЧЕВОЕ: точка с запятой!
+                quoting=1,             # csv.QUOTE_ALL — все значения в кавычках
+            )
+
+            # Показываем детальную информацию об экспорте
+            success_msg = (
+                f"✅ Файл успешно сохранён:\n{output_path}\n\n"
+                f"📊 Параметры экспорта:\n"
+                f"   • Разделитель: точка с запятой (;)\n"
+                f"   • Кодировка: UTF-8 с BOM\n"
+                f"   • Строк экспортировано: {len(self.bitrix_df)}\n"
+                f"   • Колонок: {len(self.bitrix_df.columns)}\n\n"
+                f"💡 Готово к импорту в Битрикс24!"
             )
 
             QMessageBox.information(
                 self,
                 "✅ Экспорт завершён",
-                f"Файл успешно сохранён:\n{output_path}\n\nСтрок: {len(self.bitrix_df)}",
+                success_msg,
             )
+
             logger.info(
-                f"Экспорт выполнен: {output_path}, {len(self.bitrix_df)} строк")
+                f"Экспорт выполнен: {output_path}, {len(self.bitrix_df)} строк, "
+                f"разделитель=';', кодировка=utf-8-sig"
+            )
 
         except Exception as exc:
             logger.exception("Ошибка при экспорте")

@@ -43,3 +43,854 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^^^
 sqlite3.ProgrammingError: Cannot operate on a closed database.
 [2026-02-16 13:54:43] [CRITICAL] __main__:59 — Не удалось инициализировать БД, выход
+[2026-02-16 14:11:00] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 14:11:00] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 14:11:00] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 14:11:00] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 14:11:00] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 14:11:00] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 14:11:00] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 14:11:00] [ERROR   ] __main__:41 — Ошибка инициализации БД
+Traceback (most recent call last):
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\main.py", line 37, in initialize_database
+    managers_repo.sync_managers(settings.default_managers)
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\managers_repo.py", line 71, in sync_managers
+    existing = set(self.get_all_active())
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\managers_repo.py", line 36, in get_all_active
+    rows = self.fetch_all(query)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\repositories\base.py", line 95, in fetch_all
+    return cursor.fetchall()
+           ^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+[2026-02-16 14:11:00] [CRITICAL] __main__:59 — Не удалось инициализировать БД, выход
+[2026-02-16 14:37:56] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 14:37:56] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 14:37:56] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 14:37:56] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 14:37:56] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 14:37:56] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 14:37:56] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 14:37:56] [INFO    ] repositories.managers_repo:52 — Менеджер добавлен: Менеджер 2
+[2026-02-16 14:37:56] [INFO    ] repositories.managers_repo:52 — Менеджер добавлен: Менеджер 1
+[2026-02-16 14:37:56] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 14:37:56] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 14:37:56] [INFO    ] gui.main_window:157 — Загружено 2 менеджеров из БД
+[2026-02-16 14:37:56] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 14:37:57] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 14:39:06] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=1
+[2026-02-16 14:39:06] [ERROR   ] services.data_service:76 — Ошибка обработки файла C:\Users\direct01\Downloads\Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+Traceback (most recent call last):
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\services\data_service.py", line 54, in load_and_clean_files
+    df = self._read_file(path)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\services\data_service.py", line 99, in _read_file
+    return pd.read_csv(path, sep=sep, dtype=str)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 626, in _read
+    return parser.read(nrows)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/parsers.pyx", line 838, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 905, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 874, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 891, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "pandas/_libs/parsers.pyx", line 2061, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 10 fields in line 11, saw 11
+
+[2026-02-16 14:39:06] [ERROR   ] gui.main_window:280 — Ошибка обработки файлов: Не удалось обработать файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 14:39:11] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=1, status=failed
+[2026-02-16 14:39:16] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=2
+[2026-02-16 14:39:16] [ERROR   ] services.data_service:76 — Ошибка обработки файла C:\Users\direct01\Downloads\Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+Traceback (most recent call last):
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\services\data_service.py", line 54, in load_and_clean_files
+    df = self._read_file(path)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\services\data_service.py", line 99, in _read_file
+    return pd.read_csv(path, sep=sep, dtype=str)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 626, in _read
+    return parser.read(nrows)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/parsers.pyx", line 838, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 905, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 874, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 891, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "pandas/_libs/parsers.pyx", line 2061, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 10 fields in line 11, saw 11
+
+[2026-02-16 14:39:16] [ERROR   ] gui.main_window:280 — Ошибка обработки файлов: Не удалось обработать файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 14:39:17] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=2, status=failed
+[2026-02-16 14:42:13] [INFO    ] gui.main_window:378 — Закрытие главного окна
+[2026-02-16 14:48:50] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 14:48:50] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 14:48:50] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 14:48:50] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 14:48:50] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 14:48:50] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 14:48:50] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 14:48:50] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 14:48:50] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 14:48:50] [INFO    ] gui.main_window:157 — Загружено 2 менеджеров из БД
+[2026-02-16 14:48:50] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 14:48:50] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 14:49:00] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=3
+[2026-02-16 14:49:00] [ERROR   ] services.data_service:76 — Ошибка обработки файла C:\Users\direct01\Downloads\Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+Traceback (most recent call last):
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\services\data_service.py", line 54, in load_and_clean_files
+    df = self._read_file(path)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\services\data_service.py", line 99, in _read_file
+    return pd.read_csv(path, sep=sep, dtype=str)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 626, in _read
+    return parser.read(nrows)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\direct01\AppData\Local\pypoetry\Cache\virtualenvs\lead-generation-system-Ye61J-Vo-py3.11\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/parsers.pyx", line 838, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 905, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 874, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 891, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "pandas/_libs/parsers.pyx", line 2061, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 10 fields in line 11, saw 11
+
+[2026-02-16 14:49:00] [ERROR   ] gui.main_window:280 — Ошибка обработки файлов: Не удалось обработать файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 14:49:04] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=3, status=failed
+[2026-02-16 14:53:47] [INFO    ] gui.main_window:378 — Закрытие главного окна
+[2026-02-16 14:53:51] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 14:53:51] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 14:53:51] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 14:53:51] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 14:53:51] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 14:53:51] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 14:53:51] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 14:53:51] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 14:53:51] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 14:53:51] [INFO    ] gui.main_window:157 — Загружено 2 менеджеров из БД
+[2026-02-16 14:53:51] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 14:53:52] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 14:53:59] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=4
+[2026-02-16 14:53:59] [INFO    ] services.data_service:72 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 0 строк после очистки
+[2026-02-16 14:53:59] [INFO    ] services.data_service:93 — Обработка завершена: {'total_rows': 225, 'removed_empty_phones': 225, 'removed_duplicates': 0, 'final_rows': 0, 'unique_phones': 0}
+[2026-02-16 14:53:59] [WARNING ] services.bitrix_service:45 — Пустой DataFrame для маппинга
+[2026-02-16 14:53:59] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=4, status=success
+[2026-02-16 14:53:59] [INFO    ] gui.main_window:276 — Обработка завершена успешно: {'total_rows': 225, 'removed_empty_phones': 225, 'removed_duplicates': 0, 'final_rows': 0, 'unique_phones': 0}
+[2026-02-16 14:59:16] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=5
+[2026-02-16 14:59:16] [INFO    ] services.data_service:72 — Файл 22.csv обработан: 0 строк после очистки
+[2026-02-16 14:59:16] [INFO    ] services.data_service:72 — Файл Варя.csv обработан: 0 строк после очистки
+[2026-02-16 14:59:16] [INFO    ] services.data_service:72 — Файл Вика.csv обработан: 0 строк после очистки
+[2026-02-16 14:59:16] [INFO    ] services.data_service:72 — Файл жанна.csv обработан: 0 строк после очистки
+[2026-02-16 14:59:16] [INFO    ] services.data_service:93 — Обработка завершена: {'total_rows': 373, 'removed_empty_phones': 373, 'removed_duplicates': 0, 'final_rows': 0, 'unique_phones': 0}
+[2026-02-16 14:59:16] [WARNING ] services.bitrix_service:45 — Пустой DataFrame для маппинга
+[2026-02-16 14:59:16] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=5, status=success
+[2026-02-16 14:59:16] [INFO    ] gui.main_window:276 — Обработка завершена успешно: {'total_rows': 373, 'removed_empty_phones': 373, 'removed_duplicates': 0, 'final_rows': 0, 'unique_phones': 0}
+[2026-02-16 14:59:23] [INFO    ] gui.main_window:378 — Закрытие главного окна
+[2026-02-16 15:22:48] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 15:22:48] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 15:22:48] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 15:22:48] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 15:22:48] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 15:22:48] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 15:22:48] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 15:22:48] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 15:22:48] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 15:22:48] [INFO    ] gui.main_window:157 — Загружено 2 менеджеров из БД
+[2026-02-16 15:22:48] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 15:22:49] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 15:22:55] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=6
+[2026-02-16 15:22:55] [INFO    ] services.data_service:125 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv прочитан: кодировка=utf-8, разделитель='\t', строк=239, колонок=85
+[2026-02-16 15:22:55] [INFO    ] services.data_service:73 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 200 строк после очистки
+[2026-02-16 15:22:55] [INFO    ] services.data_service:94 — Обработка завершена: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 15:22:55] [INFO    ] services.bitrix_service:110 — Замапплено 200 лидов в формат Битрикс24
+[2026-02-16 15:22:55] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=6, status=success
+[2026-02-16 15:22:55] [INFO    ] gui.main_window:276 — Обработка завершена успешно: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 15:23:20] [INFO    ] gui.main_window:365 — Экспорт выполнен: C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\data\output\111.csv, 200 строк
+[2026-02-16 15:29:26] [INFO    ] gui.main_window:378 — Закрытие главного окна
+[2026-02-16 15:29:34] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 15:29:34] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 15:29:34] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 15:29:34] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 15:29:34] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 15:29:34] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 15:29:34] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 15:29:34] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 15:29:34] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 15:29:35] [INFO    ] gui.main_window:157 — Загружено 2 менеджеров из БД
+[2026-02-16 15:29:35] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 15:29:35] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 15:29:41] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=7
+[2026-02-16 15:29:41] [INFO    ] services.data_service:125 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv прочитан: кодировка=utf-8, разделитель='\t', строк=239, колонок=85
+[2026-02-16 15:29:41] [INFO    ] services.data_service:73 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 200 строк после очистки
+[2026-02-16 15:29:41] [INFO    ] services.data_service:94 — Обработка завершена: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 15:29:41] [INFO    ] services.bitrix_service:110 — Замапплено 200 лидов в формат Битрикс24
+[2026-02-16 15:29:41] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=7, status=success
+[2026-02-16 15:29:41] [INFO    ] gui.main_window:276 — Обработка завершена успешно: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 15:29:48] [INFO    ] gui.main_window:365 — Экспорт выполнен: C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\data\output\12.csv, 200 строк
+[2026-02-16 15:30:19] [INFO    ] gui.main_window:378 — Закрытие главного окна
+[2026-02-16 15:30:23] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 15:30:23] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 15:30:23] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 15:30:23] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 15:30:23] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 15:30:23] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 15:30:23] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 15:30:23] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 15:30:23] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 15:30:23] [INFO    ] gui.main_window:157 — Загружено 2 менеджеров из БД
+[2026-02-16 15:30:23] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 15:30:23] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 15:30:34] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=8
+[2026-02-16 15:30:34] [INFO    ] services.data_service:125 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv прочитан: кодировка=utf-8, разделитель='\t', строк=239, колонок=85
+[2026-02-16 15:30:34] [INFO    ] services.data_service:73 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 200 строк после очистки
+[2026-02-16 15:30:34] [INFO    ] services.data_service:94 — Обработка завершена: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 15:30:34] [INFO    ] services.bitrix_service:110 — Замапплено 200 лидов в формат Битрикс24
+[2026-02-16 15:30:34] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=8, status=success
+[2026-02-16 15:30:34] [INFO    ] gui.main_window:276 — Обработка завершена успешно: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 15:30:45] [INFO    ] gui.main_window:392 — Экспорт выполнен: C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\data\output\12.csv, 200 строк, разделитель=';', кодировка=utf-8-sig
+[2026-02-16 16:37:33] [INFO    ] gui.main_window:407 — Закрытие главного окна
+[2026-02-16 16:37:37] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 16:37:37] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 16:37:37] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 16:37:37] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 16:37:37] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 16:37:37] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 16:37:37] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 16:37:37] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 16:37:37] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 16:37:39] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 16:37:39] [INFO    ] gui.main_window:184 — Загружено 2 менеджеров из БД
+[2026-02-16 16:37:39] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 16:37:39] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 16:38:56] [INFO    ] gui.main_window:441 — Закрытие главного окна
+[2026-02-16 18:43:43] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 18:43:43] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 18:43:43] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 18:43:43] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 18:43:43] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 18:43:43] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 18:43:43] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 18:43:43] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 18:43:43] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 18:43:45] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 18:43:45] [INFO    ] gui.main_window:184 — Загружено 2 менеджеров из БД
+[2026-02-16 18:43:45] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 18:43:45] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 18:43:53] [INFO    ] gui.main_window:441 — Закрытие главного окна
+[2026-02-16 18:45:27] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 18:45:27] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 18:45:27] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 18:45:27] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 18:45:27] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 18:45:27] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 18:45:27] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 18:45:27] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 18:45:27] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 18:45:29] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 18:45:29] [INFO    ] gui.main_window:184 — Загружено 2 менеджеров из БД
+[2026-02-16 18:45:29] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 18:45:29] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 18:45:34] [INFO    ] gui.main_window:441 — Закрытие главного окна
+[2026-02-16 18:47:28] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 18:47:28] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 18:47:28] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 18:47:28] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 18:47:28] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 18:47:28] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 18:47:28] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 18:47:28] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 18:47:28] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 18:47:29] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 18:47:29] [INFO    ] gui.main_window:184 — Загружено 2 менеджеров из БД
+[2026-02-16 18:47:29] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 18:47:29] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 18:47:34] [INFO    ] gui.main_window:441 — Закрытие главного окна
+[2026-02-16 18:47:50] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 18:47:50] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 18:47:50] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 18:47:50] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 18:47:50] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 18:47:50] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 18:47:50] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 18:47:50] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 18:47:50] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 18:47:51] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 18:57:55] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 18:57:55] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 18:57:55] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 18:57:55] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 18:57:55] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 18:57:55] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 18:57:55] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 18:57:55] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 18:57:55] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 18:57:55] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 18:57:55] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 18:57:55] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 18:57:55] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 18:57:55] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 18:59:50] [INFO    ] gui.bitrix_analytics_widget:231 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 18:59:53] [INFO    ] gui.bitrix_analytics_widget:245 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 18:59:54] [INFO    ] gui.bitrix_analytics_widget:287 — Фильтрация: 12662 → 11551
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 18:59:54] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 18:59:55] [INFO    ] gui.bitrix_analytics_widget:307 — Анализ завершён успешно
+[2026-02-16 19:00:32] [INFO    ] gui.bitrix_analytics_widget:517 — TXT-отчёт экспортирован: C:\Users\direct01\Desktop\1.txt
+[2026-02-16 19:00:37] [INFO    ] gui.bitrix_analytics_widget:685 — Excel-отчёт с 4 листами сохранён
+[2026-02-16 19:03:30] [INFO    ] gui.bitrix_analytics_widget:554 — Excel-отчёт экспортирован: C:\Users\direct01\Desktop\1.xlsx
+[2026-02-16 19:03:36] [INFO    ] gui.analytics_widget:228 — Аналитика обновлена
+[2026-02-16 19:05:26] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:05:31] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:05:31] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:05:31] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:05:31] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:05:31] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:05:31] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:05:31] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:05:31] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:05:31] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:05:32] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:05:32] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:05:32] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:05:32] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:05:32] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:05:39] [INFO    ] gui.bitrix_analytics_widget:231 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:05:41] [INFO    ] gui.bitrix_analytics_widget:245 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:05:42] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:05:43] [INFO    ] gui.bitrix_analytics_widget:287 — Фильтрация: 12662 → 11551
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:05:43] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:05:43] [INFO    ] gui.bitrix_analytics_widget:307 — Анализ завершён успешно
+[2026-02-16 19:05:49] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:05:57] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:05:57] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:05:57] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:05:57] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:05:57] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:05:57] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:05:57] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:05:57] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:05:57] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:05:59] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:05:59] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:05:59] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:05:59] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:05:59] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:06:03] [INFO    ] gui.bitrix_analytics_widget:231 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:06:05] [INFO    ] gui.bitrix_analytics_widget:245 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:06:07] [INFO    ] gui.bitrix_analytics_widget:287 — Фильтрация: 12662 → 11551
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:06:07] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:06:07] [ERROR   ] gui.bitrix_analytics_widget:310 — Ошибка при анализе
+Traceback (most recent call last):
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\gui\bitrix_analytics_widget.py", line 294, in _on_analyze_clicked
+    self._display_results(metrics)
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\gui\bitrix_analytics_widget.py", line 325, in _display_results
+    self._create_stat_cards(metrics)
+  File "C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\gui\bitrix_analytics_widget.py", line 354, in _create_stat_cards
+    card = self._create_stat_card(title, value)
+           ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'BitrixAnalyticsWidget' object has no attribute '_create_stat_card'
+[2026-02-16 19:08:45] [INFO    ] gui.analytics_widget:228 — Аналитика обновлена
+[2026-02-16 19:15:17] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:15:25] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:15:25] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:15:25] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:15:25] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:15:25] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:15:25] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:15:25] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:15:25] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:15:25] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:15:26] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:15:26] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:15:26] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:15:26] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:15:26] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:15:31] [INFO    ] gui.bitrix_analytics_widget:231 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:15:32] [INFO    ] gui.bitrix_analytics_widget:245 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:15:33] [INFO    ] gui.bitrix_analytics_widget:287 — Фильтрация: 12662 → 11551
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:15:33] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:15:34] [INFO    ] gui.bitrix_analytics_widget:307 — Анализ завершён успешно
+[2026-02-16 19:20:55] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:21:47] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:21:47] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:21:47] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:21:47] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:21:47] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:21:47] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:21:47] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:21:47] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:21:47] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:21:48] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:21:48] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:21:48] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:21:48] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:21:48] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:21:55] [INFO    ] gui.bitrix_analytics_widget:237 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:21:57] [INFO    ] gui.bitrix_analytics_widget:251 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:21:58] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:21:58] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:21:58] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:21:59] [INFO    ] gui.bitrix_analytics_widget:293 — Фильтрация: 12662 → 11551
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:21:59] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:21:59] [INFO    ] gui.bitrix_analytics_widget:313 — Анализ завершён успешно
+[2026-02-16 19:24:45] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:24:50] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:24:50] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:24:50] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:24:50] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:24:50] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:24:50] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:24:50] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:24:50] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:24:50] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:24:50] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:24:50] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:24:50] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:24:50] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:24:51] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:24:56] [INFO    ] gui.bitrix_analytics_widget:237 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:24:58] [INFO    ] gui.bitrix_analytics_widget:251 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:24:59] [INFO    ] gui.bitrix_analytics_widget:293 — Фильтрация: 12662 → 11551
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:24:59] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:24:59] [INFO    ] gui.bitrix_analytics_widget:343 — Длина текста отчёта: 709 символов
+[2026-02-16 19:24:59] [INFO    ] gui.bitrix_analytics_widget:313 — Анализ завершён успешно
+[2026-02-16 19:27:38] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:28:41] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:28:41] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:28:41] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:28:41] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:28:41] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:28:41] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:28:41] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:28:41] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:28:41] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:28:42] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:28:42] [INFO    ] gui.bitrix_analytics_widget:54 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:28:42] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:28:42] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:28:42] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:28:48] [INFO    ] gui.bitrix_analytics_widget:246 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:28:50] [INFO    ] gui.bitrix_analytics_widget:260 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:28:51] [INFO    ] gui.bitrix_analytics_widget:302 — Фильтрация: 12662 → 11551
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:28:51] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:28:52] [INFO    ] gui.bitrix_analytics_widget:352 — Длина текста отчёта: 709 символов
+[2026-02-16 19:28:52] [INFO    ] gui.bitrix_analytics_widget:322 — Анализ завершён успешно
+[2026-02-16 19:32:23] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:35:24] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:35:24] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:35:24] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:35:24] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:35:24] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:35:24] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:35:24] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:35:24] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:35:24] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:35:25] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:35:25] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:35:25] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:35:25] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:35:25] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:35:37] [INFO    ] gui.bitrix_analytics_widget:317 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:35:39] [INFO    ] gui.bitrix_analytics_widget:331 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:35:40] [INFO    ] gui.bitrix_analytics_widget:373 — Фильтрация: 12662 → 11551
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:35:40] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:35:40] [INFO    ] gui.bitrix_analytics_widget:423 — Длина текста отчёта: 709 символов
+[2026-02-16 19:35:40] [INFO    ] gui.bitrix_analytics_widget:393 — Анализ завершён успешно
+[2026-02-16 19:35:59] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:36:08] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:36:08] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:36:08] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:36:08] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:36:08] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:36:08] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:36:08] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:36:08] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:36:08] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:36:09] [INFO    ] gui.analytics_widget:102 — Виджет аналитики инициализирован
+[2026-02-16 19:36:09] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:36:09] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:36:09] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:36:09] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:36:16] [INFO    ] gui.analytics_widget:228 — Аналитика обновлена
+[2026-02-16 19:37:28] [INFO    ] gui.bitrix_analytics_widget:317 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:37:30] [INFO    ] gui.bitrix_analytics_widget:331 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:37:31] [INFO    ] gui.bitrix_analytics_widget:373 — Фильтрация: 12662 → 11551
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:37:31] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:37:31] [INFO    ] gui.bitrix_analytics_widget:423 — Длина текста отчёта: 709 символов
+[2026-02-16 19:37:31] [INFO    ] gui.bitrix_analytics_widget:393 — Анализ завершён успешно
+[2026-02-16 19:49:31] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:49:35] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:49:35] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:49:35] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:49:35] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:49:35] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:49:35] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:49:35] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:49:35] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:49:35] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:49:36] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 19:49:36] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:49:36] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:49:36] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:49:36] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:49:44] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 19:50:05] [INFO    ] gui.bitrix_analytics_widget:317 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 19:50:07] [INFO    ] gui.bitrix_analytics_widget:331 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 19:50:08] [INFO    ] gui.bitrix_analytics_widget:373 — Фильтрация: 12662 → 11551
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 19:50:08] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 19:50:09] [INFO    ] gui.bitrix_analytics_widget:423 — Длина текста отчёта: 709 символов
+[2026-02-16 19:50:09] [INFO    ] gui.bitrix_analytics_widget:393 — Анализ завершён успешно
+[2026-02-16 19:54:23] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:54:24] [INFO    ] gui.main_window:225 — Менеджеры сохранены: ['Менеджер 1', 'Менеджер 2']
+[2026-02-16 19:54:25] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=9
+[2026-02-16 19:54:25] [INFO    ] services.data_service:125 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv прочитан: кодировка=utf-8, разделитель='\t', строк=239, колонок=85
+[2026-02-16 19:54:25] [INFO    ] services.data_service:73 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 200 строк после очистки
+[2026-02-16 19:54:25] [INFO    ] services.data_service:94 — Обработка завершена: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 19:54:25] [INFO    ] services.bitrix_service:110 — Замапплено 200 лидов в формат Битрикс24
+[2026-02-16 19:54:25] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=9, status=success
+[2026-02-16 19:54:25] [INFO    ] gui.main_window:307 — Обработка завершена успешно: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 19:54:25] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 19:58:46] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 19:59:31] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 19:59:31] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 19:59:31] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 19:59:31] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 19:59:31] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 19:59:31] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 19:59:31] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 19:59:31] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 19:59:31] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 19:59:32] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 19:59:32] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 19:59:32] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 19:59:32] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 19:59:32] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 19:59:40] [INFO    ] gui.file_loader:136 — Добавлен файл через Drag & Drop: Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 20:00:06] [INFO    ] gui.file_loader:136 — Добавлен файл через Drag & Drop: LPR_TURBO_BEST_Merged_Leads_Master_CLEANED.csv
+[2026-02-16 20:00:10] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:00:12] [INFO    ] gui.main_window:225 — Менеджеры сохранены: ['Менеджер 1', 'Менеджер 2']
+[2026-02-16 20:00:12] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=10
+[2026-02-16 20:00:12] [INFO    ] services.data_service:125 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv прочитан: кодировка=utf-8, разделитель='\t', строк=239, колонок=85
+[2026-02-16 20:00:12] [INFO    ] services.data_service:73 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 200 строк после очистки
+[2026-02-16 20:00:12] [INFO    ] services.data_service:125 — Файл LPR_TURBO_BEST_Merged_Leads_Master_CLEANED.csv прочитан: кодировка=utf-8, разделитель=',', строк=2800, колонок=11
+[2026-02-16 20:00:13] [INFO    ] services.data_service:73 — Файл LPR_TURBO_BEST_Merged_Leads_Master_CLEANED.csv обработан: 2800 строк после очистки
+[2026-02-16 20:00:13] [INFO    ] services.data_service:94 — Обработка завершена: {'total_rows': 3039, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 3000, 'unique_phones': 3083}
+[2026-02-16 20:00:13] [INFO    ] services.bitrix_service:110 — Замапплено 3000 лидов в формат Битрикс24
+[2026-02-16 20:00:13] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=10, status=success
+[2026-02-16 20:00:13] [INFO    ] gui.main_window:307 — Обработка завершена успешно: {'total_rows': 3039, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 3000, 'unique_phones': 3083}
+[2026-02-16 20:00:13] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 20:00:28] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 20:06:18] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 20:06:41] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:06:41] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:06:41] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:06:41] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:06:41] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:06:41] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:06:41] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:06:41] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:06:41] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:07:13] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:07:13] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:07:13] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:07:13] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:07:13] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:07:13] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:07:13] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:07:13] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:07:13] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:07:26] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:07:26] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:07:26] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:07:26] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:07:26] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:07:26] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:07:26] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:07:26] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:07:26] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:09:09] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:09:09] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:09:09] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:09:09] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:09:09] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:09:09] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:09:09] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:09:09] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:09:09] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:09:10] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:09:10] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:09:10] [INFO    ] gui.main_window:188 — Загружено 2 менеджеров из БД
+[2026-02-16 20:09:10] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 20:09:10] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 20:09:15] [INFO    ] gui.file_loader:151 — Добавлен файл через Drag & Drop: LPR_TURBO_BEST_Merged_Leads_Master_CLEANED.csv
+[2026-02-16 20:09:18] [INFO    ] gui.file_loader:151 — Добавлен файл через Drag & Drop: Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 20:09:24] [INFO    ] gui.file_loader:243 — Удалён файл: Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 20:09:24] [INFO    ] gui.file_loader:243 — Удалён файл: LPR_TURBO_BEST_Merged_Leads_Master_CLEANED.csv
+[2026-02-16 20:09:27] [INFO    ] gui.file_loader:151 — Добавлен файл через Drag & Drop: Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 20:09:29] [INFO    ] gui.file_loader:151 — Добавлен файл через Drag & Drop: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 20:09:30] [INFO    ] gui.file_loader:256 — Очищен список файлов: удалено 2 файлов
+[2026-02-16 20:17:01] [INFO    ] gui.main_window:445 — Закрытие главного окна
+[2026-02-16 20:17:08] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:17:08] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:17:08] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:17:08] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:17:08] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:17:08] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:17:08] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:17:08] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:17:08] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:17:09] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:17:09] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:17:57] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:17:57] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:17:57] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:17:57] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:17:57] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:17:57] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:17:57] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:17:57] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:17:57] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:17:58] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:17:58] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:21:59] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:21:59] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:21:59] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:21:59] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:21:59] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:21:59] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:21:59] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:21:59] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:21:59] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:22:00] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:22:00] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:22:00] [INFO    ] gui.settings_widget:49 — Виджет настроек инициализирован
+[2026-02-16 20:22:00] [INFO    ] gui.main_window:194 — Загружено 2 менеджеров из БД
+[2026-02-16 20:22:00] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 20:22:00] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 20:26:08] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 20:26:17] [INFO    ] gui.bitrix_analytics_widget:317 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 20:26:19] [INFO    ] gui.bitrix_analytics_widget:331 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 20:26:20] [INFO    ] gui.bitrix_analytics_widget:373 — Фильтрация: 12662 → 11551
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 20:26:20] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 20:26:21] [INFO    ] gui.bitrix_analytics_widget:423 — Длина текста отчёта: 709 символов
+[2026-02-16 20:26:21] [INFO    ] gui.bitrix_analytics_widget:393 — Анализ завершён успешно
+[2026-02-16 20:28:29] [INFO    ] gui.main_window:451 — Закрытие главного окна
+[2026-02-16 20:28:34] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:28:34] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:28:34] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:28:34] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:28:34] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:28:34] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:28:34] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:28:34] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:28:34] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:28:34] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:28:34] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:34:31] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:34:31] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:34:31] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:34:31] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:34:31] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:34:31] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:34:31] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:34:31] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:34:31] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:34:32] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:34:32] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:34:32] [INFO    ] gui.history_widget:252 — История загружена: 10 записей
+[2026-02-16 20:34:32] [INFO    ] gui.history_widget:47 — Виджет истории инициализирован
+[2026-02-16 20:34:32] [INFO    ] gui.settings_widget:49 — Виджет настроек инициализирован
+[2026-02-16 20:34:32] [INFO    ] gui.main_window:199 — Загружено 2 менеджеров из БД
+[2026-02-16 20:34:32] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 20:34:32] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 20:34:43] [INFO    ] gui.history_widget:252 — История загружена: 10 записей
+[2026-02-16 20:39:30] [INFO    ] gui.main_window:463 — Закрытие главного окна
+[2026-02-16 20:39:37] [INFO    ] __main__:49 — ============================================================
+[2026-02-16 20:39:37] [INFO    ] __main__:50 — Запуск Lead Generation System
+[2026-02-16 20:39:37] [INFO    ] __main__:51 — Версия Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+[2026-02-16 20:39:37] [INFO    ] __main__:52 — Уровень логирования: INFO
+[2026-02-16 20:39:37] [INFO    ] __main__:53 — ============================================================
+[2026-02-16 20:39:37] [INFO    ] repositories.managers_repo:31 — Таблица managers создана/проверена
+[2026-02-16 20:39:38] [INFO    ] repositories.processing_history_repo:38 — Таблица processing_history создана/проверена
+[2026-02-16 20:39:38] [INFO    ] repositories.managers_repo:85 — Менеджеры синхронизированы: 2 активных
+[2026-02-16 20:39:38] [INFO    ] __main__:39 — База данных инициализирована
+[2026-02-16 20:39:38] [INFO    ] gui.preview_table:104 — Улучшенная таблица предпросмотра инициализирована
+[2026-02-16 20:39:38] [INFO    ] gui.analytics_widget:121 — Виджет аналитики инициализирован
+[2026-02-16 20:39:38] [INFO    ] gui.bitrix_analytics_widget:69 — Виджет Битрикс-аналитики инициализирован
+[2026-02-16 20:39:38] [INFO    ] gui.history_widget:253 — История загружена: 10 записей
+[2026-02-16 20:39:38] [INFO    ] gui.history_widget:48 — Виджет истории инициализирован
+[2026-02-16 20:39:38] [INFO    ] gui.settings_widget:49 — Виджет настроек инициализирован
+[2026-02-16 20:39:38] [INFO    ] gui.main_window:199 — Загружено 2 менеджеров из БД
+[2026-02-16 20:39:38] [INFO    ] gui.main_window:84 — Главное окно инициализировано
+[2026-02-16 20:39:39] [INFO    ] __main__:70 — Главное окно открыто, приложение готово к работе
+[2026-02-16 20:40:01] [INFO    ] gui.file_loader:151 — Добавлен файл через Drag & Drop: Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv
+[2026-02-16 20:40:55] [INFO    ] repositories.processing_history_repo:60 — Начата обработка, record_id=11
+[2026-02-16 20:40:55] [INFO    ] services.data_service:125 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv прочитан: кодировка=utf-8, разделитель='\t', строк=239, колонок=85
+[2026-02-16 20:40:55] [INFO    ] services.data_service:73 — Файл Строительство Пер_ЕКБ_Орен__2026-02-16_08_43_09.csv обработан: 200 строк после очистки
+[2026-02-16 20:40:55] [INFO    ] services.data_service:94 — Обработка завершена: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 20:40:55] [INFO    ] services.bitrix_service:110 — Замапплено 200 лидов в формат Битрикс24
+[2026-02-16 20:40:55] [INFO    ] repositories.processing_history_repo:101 — Обработка завершена, record_id=11, status=success
+[2026-02-16 20:40:55] [INFO    ] gui.main_window:319 — Обработка завершена успешно: {'total_rows': 239, 'removed_empty_phones': 25, 'removed_duplicates': 14, 'final_rows': 200, 'unique_phones': 283}
+[2026-02-16 20:40:55] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 20:40:55] [INFO    ] gui.history_widget:253 — История загружена: 11 записей
+[2026-02-16 20:41:17] [INFO    ] gui.main_window:449 — Экспорт выполнен: C:\Users\direct01\Documents\DIRECT-LINE\LeadGen_v4\data\output\bitrix_export_2026-02-16_20-41-12.csv, 200 строк, разделитель=';', кодировка=utf-8-sig
+[2026-02-16 20:41:47] [INFO    ] gui.analytics_widget:312 — Аналитика обновлена
+[2026-02-16 20:42:07] [INFO    ] gui.bitrix_analytics_widget:317 — LEAD выбран: LEAD_20260216_7b8400c6_699330c74c094.csv
+[2026-02-16 20:42:09] [INFO    ] gui.bitrix_analytics_widget:331 — DEAL выбран: DEAL_20260216_3250935f_699330fb2e09f.csv
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:41 — LEAD загружен: 11535 строк, 78 колонок
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:53 — DEAL загружен: 1127 строк, 173 колонок
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:113 — Найдена колонка LEAD: 'Источник телефона'
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:124 — LEAD: 11535 → 11535 (после фильтрации)
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:130 — Найдена колонка DEAL: 'Источник телефона'
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:139 — DEAL: 1127 → 16 (после фильтрации)
+[2026-02-16 20:42:10] [INFO    ] gui.bitrix_analytics_widget:373 — Фильтрация: 12662 → 11551
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:168 — Подсчёт метрик: всего записей = 11551
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:184 — Причины отказа: 5645 записей
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:200 — Стадии сделок: ['Презентация + КП', 'Некондиция', 'Новая']...
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:223 — Успешных продаж: 0
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:232 — Конверсия: 0.14%
+[2026-02-16 20:42:10] [INFO    ] services.bitrix_analytics_service:244 — Топ-менеджеры: ['Роман Катников', 'Жанна Ишмухамбетова', 'Полина Карузина']
+[2026-02-16 20:42:11] [INFO    ] gui.bitrix_analytics_widget:423 — Длина текста отчёта: 709 символов
+[2026-02-16 20:42:11] [INFO    ] gui.bitrix_analytics_widget:393 — Анализ завершён успешно
+[2026-02-16 20:42:43] [INFO    ] gui.main_window:464 — Закрытие главного окна

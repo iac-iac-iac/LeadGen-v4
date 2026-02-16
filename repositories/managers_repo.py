@@ -1,7 +1,7 @@
 """
 Репозиторий для работы с менеджерами.
 
-CRUD-операции для таблицы managers.
+ИСПРАВЛЕНО: используем execute_write для INSERT/UPDATE.
 """
 
 import logging
@@ -48,7 +48,7 @@ class ManagersRepository(BaseRepository):
         """
         query = "INSERT INTO managers (name) VALUES (?)"
         try:
-            self.execute(query, (name,), commit=True)
+            self.execute_write(query, (name,))
             logger.info(f"Менеджер добавлен: {name}")
         except DatabaseError as exc:
             if "UNIQUE constraint failed" in str(exc):
@@ -59,7 +59,7 @@ class ManagersRepository(BaseRepository):
     def deactivate_manager(self, name: str) -> None:
         """Деактивировать менеджера (мягкое удаление)."""
         query = "UPDATE managers SET is_active = 0 WHERE name = ?"
-        self.execute(query, (name,), commit=True)
+        self.execute_write(query, (name,))
         logger.info(f"Менеджер деактивирован: {name}")
 
     def sync_managers(self, manager_names: List[str]) -> None:

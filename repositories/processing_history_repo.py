@@ -1,7 +1,7 @@
 """
 Репозиторий истории обработки файлов.
 
-Логирует каждый запуск обработки для аналитики.
+ИСПРАВЛЕНО: используем execute_write для INSERT/UPDATE.
 """
 
 import logging
@@ -53,12 +53,10 @@ class ProcessingHistoryRepository(BaseRepository):
                                        final_rows, unique_phones)
         VALUES (?, ?, 0, 0, 0, 0, 0)
         """
-        cursor = self.execute(
+        record_id = self.execute_write(
             query,
             (datetime.now().isoformat(), file_count),
-            commit=True,
         )
-        record_id = cursor.lastrowid
         logger.info(f"Начата обработка, record_id={record_id}")
         return record_id
 
@@ -87,7 +85,7 @@ class ProcessingHistoryRepository(BaseRepository):
             status = ?
         WHERE id = ?
         """
-        self.execute(
+        self.execute_write(
             query,
             (
                 datetime.now().isoformat(),
@@ -99,7 +97,6 @@ class ProcessingHistoryRepository(BaseRepository):
                 status,
                 record_id,
             ),
-            commit=True,
         )
         logger.info(
             f"Обработка завершена, record_id={record_id}, status={status}")

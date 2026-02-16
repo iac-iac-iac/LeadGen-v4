@@ -10,6 +10,9 @@ PyQt6 = "^6.6"
 pandas = "^2.2"
 pydantic = "^2.6"
 pydantic-settings = "^2.2"
+matplotlib = "^3.8"          # ← Графики
+openpyxl = "^3.1"            # ← Excel экспорт
+reportlab = "^4.0"           # ← PDF отчёты
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0"
