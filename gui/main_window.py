@@ -5,14 +5,21 @@
 import logging
 from pathlib import Path
 from typing import List, Optional
+from services.yandex_maps_url_generator import YandexMapsURLGenerator
 
 import pandas as pd
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QWidget,
+    QDialog,
     QMainWindow,
     QVBoxLayout,
+    QListWidget,
+    QLineEdit,
+    QCheckBox,
+    QTableWidget,
     QHBoxLayout,
+    QTableWidgetItem,
     QPushButton,
     QTextEdit,
     QLabel,
@@ -87,6 +94,7 @@ class MainWindow(QMainWindow):
         """Построить компоновку главного окна с вкладками."""
         from PyQt6.QtWidgets import QTabWidget
         from gui.analytics_widget import AnalyticsWidget
+        from gui.url_generator_widget import URLGeneratorWidget
 
         central = QWidget()
         main_layout = QVBoxLayout()
@@ -168,10 +176,24 @@ class MainWindow(QMainWindow):
         self.history_widget = HistoryWidget()
         tabs.addTab(self.history_widget, "📜 История")
 
+        # ============================================================
+        # ВКЛАДКА: ГЕНЕРАТОР ССЫЛОК ЯНДЕКС.КАРТ (НОВАЯ!)
+        # ============================================================
+        self.url_generator_widget = URLGeneratorWidget()
+        tabs.addTab(self.url_generator_widget, "🗺️ Генератор ссылок")
+
         # Вкладка: Настройки
         from gui.settings_widget import SettingsWidget
         self.settings_widget = SettingsWidget()
         tabs.addTab(self.settings_widget, "⚙️ Настройки")
+
+        # ============================================================
+        # СВЯЗЬ ВИДЖЕТОВ: обновление городов при изменении настроек
+        # ============================================================
+        # Когда города изменяются в настройках, обновляем генератор
+        self.settings_widget.cities_manager.cities_updated.connect(
+            self.url_generator_widget.refresh_cities
+        )
 
         # Добавляем вкладки в главный layout
         main_layout.addWidget(tabs)

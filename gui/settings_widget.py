@@ -6,6 +6,7 @@
 - Настройки Битрикс24
 - Параметры обработки
 - Уровень логирования
+- Города и районы для генератора Яндекс.Карт
 """
 
 import logging
@@ -26,11 +27,12 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QMessageBox,
     QScrollArea,
+    QTabWidget,
 )
 from PyQt6.QtCore import Qt
 
 from config.settings import settings
-
+from gui.cities_manager_widget import CitiesManagerWidget
 
 logger = logging.getLogger(__name__)
 
@@ -55,36 +57,30 @@ class SettingsWidget(QWidget):
         # Заголовок
         header = QLabel("⚙️ Настройки приложения")
         header.setStyleSheet(
-            "font-size: 18px; font-weight: bold; margin: 10px;")
+            "font-size: 18px; font-weight: bold; margin: 10px;"
+        )
         main_layout.addWidget(header)
 
-        # Скролл-область
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll_content = QWidget()
-        scroll_layout = QVBoxLayout(scroll_content)
+        # ============================================================
+        # ВКЛАДКИ НАСТРОЕК
+        # ============================================================
+        tabs = QTabWidget()
 
-        # Блок 1: Пути
-        paths_group = self._create_paths_section()
-        scroll_layout.addWidget(paths_group)
+        # ВКЛАДКА 1: Общие настройки
+        tab_general = self._create_general_tab()
+        tabs.addTab(tab_general, "⚙️ Общие")
 
-        # Блок 2: Битрикс24
-        bitrix_group = self._create_bitrix_section()
-        scroll_layout.addWidget(bitrix_group)
+        # ВКЛАДКА 2: Управление городами
+        self.cities_manager = CitiesManagerWidget()
+        tabs.addTab(self.cities_manager, "🌆 Города и районы")
 
-        # Блок 3: Параметры обработки
-        processing_group = self._create_processing_section()
-        scroll_layout.addWidget(processing_group)
+        # ВКЛАДКА 3: О программе
+        tab_about = self._create_about_tab()
+        tabs.addTab(tab_about, "ℹ️ О программе")
 
-        # Блок 4: Логирование
-        logging_group = self._create_logging_section()
-        scroll_layout.addWidget(logging_group)
+        main_layout.addWidget(tabs)
 
-        scroll_layout.addStretch()
-        scroll.setWidget(scroll_content)
-        main_layout.addWidget(scroll)
-
-        # Кнопки внизу
+        # Кнопки внизу (для общих настроек)
         buttons_layout = QHBoxLayout()
 
         self.btn_save = QPushButton("💾 Сохранить настройки")
@@ -175,9 +171,108 @@ class SettingsWidget(QWidget):
                 background-color: #1e1e1e;
                 border: none;
             }
+            QTabWidget::pane {
+                border: 1px solid #444;
+                background-color: #2d2d2d;
+            }
+            QTabBar::tab {
+                background-color: #3a3a3a;
+                color: #e0e0e0;
+                border: 1px solid #444;
+                padding: 8px 15px;
+                margin-right: 2px;
+            }
+            QTabBar::tab:selected {
+                background-color: #4a4a4a;
+                border-bottom-color: #4a4a4a;
+            }
+            QTabBar::tab:hover {
+                background-color: #505050;
+            }
         """)
 
         self.setLayout(main_layout)
+
+    def _create_general_tab(self) -> QWidget:
+        """Создать вкладку общих настроек."""
+        widget = QWidget()
+        layout = QVBoxLayout()
+
+        # Скролл-область
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll_content = QWidget()
+        scroll_layout = QVBoxLayout(scroll_content)
+
+        # Блок 1: Пути
+        paths_group = self._create_paths_section()
+        scroll_layout.addWidget(paths_group)
+
+        # Блок 2: Битрикс24
+        bitrix_group = self._create_bitrix_section()
+        scroll_layout.addWidget(bitrix_group)
+
+        # Блок 3: Параметры обработки
+        processing_group = self._create_processing_section()
+        scroll_layout.addWidget(processing_group)
+
+        # Блок 4: Логирование
+        logging_group = self._create_logging_section()
+        scroll_layout.addWidget(logging_group)
+
+        scroll_layout.addStretch()
+        scroll.setWidget(scroll_content)
+        layout.addWidget(scroll)
+
+        widget.setLayout(layout)
+        return widget
+
+    def _create_about_tab(self) -> QWidget:
+        """Создать вкладку 'О программе'."""
+        widget = QWidget()
+        layout = QVBoxLayout()
+
+        about_text = QLabel(
+            "<h2 style='color: #64B5F6;'>Lead Generation System v1.0</h2>"
+            "<p><b>Система автоматизации лидогенерации</b></p>"
+            "<hr style='border: 1px solid #444;'>"
+            "<h3 style='color: #81C784;'>📋 Функционал:</h3>"
+            "<ul style='line-height: 1.8;'>"
+            "<li>📁 <b>Обработка TSV/CSV файлов</b> от Webbee AI</li>"
+            "<li>📞 <b>Валидация и очистка</b> телефонных номеров</li>"
+            "<li>🔄 <b>Удаление дубликатов</b> по номерам телефонов</li>"
+            "<li>🗺️ <b>Генератор ссылок</b> для Яндекс.Карт</li>"
+            "<li>📊 <b>Аналитика и статистика</b> обработки</li>"
+            "<li>📈 <b>Аналитика Битрикс24</b> (LEAD/DEAL)</li>"
+            "<li>💾 <b>Экспорт в Битрикс24</b> (CSV, UTF-8 BOM, разделитель ;)</li>"
+            "<li>📜 <b>История обработок</b> с детальной статистикой</li>"
+            "<li>⚙️ <b>Гибкие настройки</b> путей, полей, городов</li>"
+            "</ul>"
+            "<hr style='border: 1px solid #444;'>"
+            "<h3 style='color: #FFB74D;'>🛠️ Технологии:</h3>"
+            "<p style='margin-left: 20px;'>"
+            "<b>• Python 3.11.9</b><br>"
+            "<b>• PyQt6</b> (современный GUI)<br>"
+            "<b>• pandas</b> (обработка данных)<br>"
+            "<b>• SQLite</b> (база данных)<br>"
+            "<b>• pydantic-settings</b> (конфигурация)<br>"
+            "</p>"
+            "<hr style='border: 1px solid #444;'>"
+            "<p style='text-align: center; color: #888;'>"
+            "<i>© 2026 Lead Generation System<br>"
+            "Разработано для автоматизации холодных продаж</i>"
+            "</p>"
+        )
+        about_text.setWordWrap(True)
+        about_text.setAlignment(Qt.AlignmentFlag.AlignTop)
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setWidget(about_text)
+
+        layout.addWidget(scroll)
+        widget.setLayout(layout)
+        return widget
 
     def _create_paths_section(self) -> QGroupBox:
         """Блок настройки путей."""
@@ -189,7 +284,8 @@ class SettingsWidget(QWidget):
         btn_input_browse = QPushButton("📂")
         btn_input_browse.setMaximumWidth(40)
         btn_input_browse.clicked.connect(
-            lambda: self._browse_directory(self.input_dir_edit))
+            lambda: self._browse_directory(self.input_dir_edit)
+        )
 
         input_layout = QHBoxLayout()
         input_layout.addWidget(self.input_dir_edit)
@@ -201,7 +297,8 @@ class SettingsWidget(QWidget):
         btn_output_browse = QPushButton("📂")
         btn_output_browse.setMaximumWidth(40)
         btn_output_browse.clicked.connect(
-            lambda: self._browse_directory(self.output_dir_edit))
+            lambda: self._browse_directory(self.output_dir_edit)
+        )
 
         output_layout = QHBoxLayout()
         output_layout.addWidget(self.output_dir_edit)
@@ -213,7 +310,8 @@ class SettingsWidget(QWidget):
         btn_reports_browse = QPushButton("📂")
         btn_reports_browse.setMaximumWidth(40)
         btn_reports_browse.clicked.connect(
-            lambda: self._browse_directory(self.reports_dir_edit))
+            lambda: self._browse_directory(self.reports_dir_edit)
+        )
 
         reports_layout = QHBoxLayout()
         reports_layout.addWidget(self.reports_dir_edit)
